@@ -64,7 +64,7 @@ INSERT INTO players (player_id, name, surname, preferred_pos, shirt_number, team
 -- =====================
 -- Games / Matches (8)
 -- =====================
-INSERT INTO games (game_id, game_date, home_team_id, away_team_id, stadium_id, home_goals, away_goals) VALUES
+INSERT INTO games (game_date, home_team_id, away_team_id, stadium_id, home_goals, away_goals) VALUES
   ('2025-09-01', 1, 2, 1, 2, 1),  -- Dynamo vs Shakhtar 2-1
   ('2025-09-05', 3, 4, 3, 1, 1),  -- Dnipro-1 vs Zorya 1-1
   ('2025-09-10', 5, 6, 5, 0, 0),  -- Metalist vs Chornomorets 0-0
@@ -83,7 +83,7 @@ INSERT INTO goals (goal_id, game_id, scoring_team_id, player_id, minute_scored, 
   -- Game 1: Dynamo 2-1 Shakhtar
   (1,  1, 1, 1,  12, 0, 0),   -- Yarmolenko
   (2,  1, 2, 7,  54, 0, 0),   -- Traoré
-  (3,  1, 1, 3,  77, 0, 0),   -- Besedin
+  (3,  1, 1, 3,  77, 0, 1),   -- Besedin
 
   -- Game 2: Dnipro-1 1-1 Zorya
   (4,  2, 3, 9,  35, 0, 0),   -- Dovbyk
@@ -94,24 +94,24 @@ INSERT INTO goals (goal_id, game_id, scoring_team_id, player_id, minute_scored, 
   -- Game 4: Shakhtar 3-2 Dnipro-1
   (6,  4, 2, 7,   9, 0, 0),   -- Traoré
   (7,  4, 3, 9,  40, 0, 0),   -- Dovbyk
-  (8,  4, 2, 5,  56, 0, 0),   -- Mudryk
+  (8,  4, 2, 5,  56, 0, 1),   -- Mudryk
   (9,  4, 3,10,  70, 0, 0),   -- Pikhalyonok
-  (10, 4, 2, 6,  84, 0, 0),   -- Taison
+  (10, 4, 2, 6,  84, 0, 1),   -- Taison
 
   -- Game 5: Zorya 0-2 Dynamo
   (11, 5, 1, 2,  22, 0, 0),   -- Tsyhankov
-  (12, 5, 1, 1,  90, 0, 0),   -- Yarmolenko
+  (12, 5, 1, 1,  90, 0, 1),   -- Yarmolenko
 
   -- Game 6: Chornomorets 1-1 Shakhtar
   (13, 6, 6,18,  31, 0, 0),   -- Antonov
   (14, 6, 2, 8,  65, 0, 0),   -- Stepanenko
 
   -- Game 7: Dynamo 3-0 Dnipro-1
-  (15, 7, 1, 3,  17, 0, 0),   -- Besedin
+  (15, 7, 1, 3,  17, 0, 1),   -- Besedin
   (16, 7, 1, 1,  49, 0, 0),   -- Yarmolenko
   (17, 7, 1, 4,  73, 0, 0),   -- Shaparenko
 
   -- Game 8: Metalist 2-1 Zorya
-  (18, 8, 5,17,  28, 0, 0),   -- Seleznyov
+  (18, 8, 5,17,  28, 0, 1),   -- Seleznyov
   (19, 8, 5,16,  58, 0, 0),   -- Sydorchuk
   (20, 8, 4,12,  88, 0, 0);   -- Gladkyy

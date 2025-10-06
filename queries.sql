@@ -1,19 +1,39 @@
--- Query to find the top goal scorers for Shakhtar Donetsk
-WITH shakhtar_players AS (
-    SELECT player_id
-    FROM players
-    WHERE team = 'Shakhtar Donetsk'
-), shakhtar_goals AS (
-    SELECT *
-    FROM goals g
-    JOIN games gm ON g.game_id = gm.game_id
-    WHERE g.scoring_team_id = 2)  -- Shakhtar Donetsk team_id
-SELECT p.name, p.surname, COUNT(sg.goal_id) AS goals_scored
-FROM shakhtar_goals sg
-LEFT JOIN players p ON sg.player_id = p.player_id
-WHERE sg.player_id IS NOT NULL
-GROUP BY p.player_id, p.name, p.surname
-ORDER BY goals_scored DESC, p.surname, p.name;
+SELECT *
+FROM games;
+
+
+-- Queary that incorporates all
+WITH top3_team_scorers AS (
+	SELECT team_name
+	FROM teams t
+	JOIN goals g ON t.team_id = g.scoring_team_id
+	GROUP BY team_name
+	ORDER BY COUNT(g.goal_id) DESC
+	LIMIT 3
+)
+SELECT g.game_date,
+	   s.stadium_name,
+       t1.team_name AS 'Home Team', 
+       t2.team_name AS 'Away Team',
+       g.home_goals,
+       g.away_goals,
+       SUM(gl.is_penalty) AS penalties_scored
+FROM games g
+JOIN teams t1 ON t1.team_id = g.home_team_id
+JOIN teams t2 ON t2.team_id = g.away_team_id
+JOIN goals gl ON g.game_id = gl.game_id
+JOIN stadiums s ON g.stadium_id = s.stadium_id
+WHERE (t1.team_name IN (SELECT team_name FROM top3_team_scorers)
+   OR t2.team_name IN (SELECT team_name FROM top3_team_scorers))
+   AND g.game_date = (
+        SELECT MAX(g2.game_date)
+        FROM games g2
+        WHERE g2.stadium_id = g.stadium_id
+      )
+GROUP BY g.game_id
+HAVING penalties_scored > 0
+ORDER BY g.game_date DESC
+LIMIT 1;
 
 
 -- Query to find the top 3 teams with the highest average goals scored per game
@@ -33,12 +53,3 @@ FROM team_goals
 WHERE games_played > 0
 ORDER BY avg_goals_per_game DESC, team_name
 LIMIT 3;
-
-
--- Query to find most common positions among players united with number of goals scored
-WITH position_goals AS (
-    SELECT p.preferred_pos, COUNT(g.goal_id) AS goals_scored
-    FROM players p
-    LEFT JOIN goals g ON p.player_id = g.player_id
-    GROUP BY p.preferred_pos
-)

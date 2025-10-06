@@ -3,15 +3,13 @@ CREATE DATABASE football_db;
 
 USE football_db;
 
--- Players
-CREATE TABLE players (
-  player_id     INT PRIMARY KEY,
-  name          VARCHAR(50) NOT NULL,
-  surname       VARCHAR(50) NOT NULL,
-  preferred_pos VARCHAR(30) NULL,
-  shirt_number  SMALLINT UNSIGNED,
-  team_id       INT,
-  FOREIGN KEY (team_id) REFERENCES teams(team_id) 
+
+-- Stadiums
+CREATE TABLE stadiums (
+  stadium_id   INT PRIMARY KEY,
+  stadium_name VARCHAR(80) NOT NULL UNIQUE,
+  city         VARCHAR(50),
+  capacity     INT UNSIGNED
 );
 
 -- Teams
@@ -23,13 +21,18 @@ CREATE TABLE teams (
   FOREIGN KEY (stadium_id) REFERENCES stadiums(stadium_id)
 );
 
--- Stadiums
-CREATE TABLE stadiums (
-  stadium_id   INT PRIMARY KEY,
-  stadium_name VARCHAR(80) NOT NULL UNIQUE,
-  city         VARCHAR(50),
-  capacity     INT UNSIGNED
+
+-- Players
+CREATE TABLE players (
+  player_id     INT PRIMARY KEY,
+  name          VARCHAR(50) NOT NULL,
+  surname       VARCHAR(50) NOT NULL,
+  preferred_pos VARCHAR(30) NULL,
+  shirt_number  SMALLINT UNSIGNED,
+  team_id       INT,
+  FOREIGN KEY (team_id) REFERENCES teams(team_id) 
 );
+
 
 -- Games/Matches
 CREATE TABLE games (
