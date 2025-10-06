@@ -67,4 +67,3 @@ CREATE TABLE goals (
 CREATE INDEX idx_goals_game ON goals(game_id);
 CREATE INDEX idx_goals_player ON goals(player_id);
 CREATE INDEX idx_games_date ON games(game_date);
-CREATE INDEX idx_memberships_team ON player_team_memberships(team_id, start_dt);
